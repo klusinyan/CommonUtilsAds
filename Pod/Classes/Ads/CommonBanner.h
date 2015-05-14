@@ -4,8 +4,6 @@
 #import <UIKit/UIKit.h>
 #import <iAd/iAd.h>
 
-extern NSString * const CommonBannerDidCompleteSetup;
-
 typedef NS_ENUM(NSInteger, CommonBannerPosition) {
     CommonBannerPositionBottom=0,
     CommonBannerPositionTop

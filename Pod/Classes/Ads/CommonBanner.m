@@ -10,8 +10,6 @@ NSString * const keyTestDevices = @"testDevices";
 
 @import GoogleMobileAds;
 
-NSString * const CommonBannerDidCompleteSetup = @"CommonBannerDidCompleteSetup";
-
 NSString * const BannerProviderStatusDidChnage = @"BannerProviderStatusDidChnage";
 
 typedef NS_ENUM(NSInteger, BannerProviderState) {
