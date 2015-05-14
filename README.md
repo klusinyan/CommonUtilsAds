@@ -22,7 +22,7 @@ pod "CommonUtilsAds"
 
 ## Author
 
-Karen Lusinyan, karen.lusinyan@softecspa.it
+Karen Lusinyan, karen.lusinyan.developerios@gmail.it
 
 ## License
 

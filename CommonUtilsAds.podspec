@@ -1,38 +1,27 @@
-#
-# Be sure to run `pod lib lint CommonUtilsAds.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# Any lines starting with a # are optional, but encouraged
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
-  s.name             = "CommonUtilsAds"
-  s.version          = "0.1.0"
-  s.summary          = "A short description of CommonUtilsAds."
-  s.description      = <<-DESC
-                       An optional longer description of CommonUtilsAds
+    s.name         = 'CommonUtilsAds'
+    s.version      = '1.0.0'
+    s.summary      = 'CommonUtils extension for Ads.'
+    s.homepage     = 'https://bitbucket.org/mrklteam/commonutilsads/'
+    s.license      = { :type => 'MIT', :file => 'LICENSE' }
+    s.author       = { 'Karen Lusinyan' => 'karen.lusinyan.developerios@gmail.com' }
+    s.platform     = :ios, '7.0'
+    s.source       = { :git => 'https://mrcararia@bitbucket.org/mrklteam/commonutilsads.git', :tag => s.version.to_s }
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/CommonUtilsAds"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
-  s.license          = 'MIT'
-  s.author           = { "Karen Lusinyan" => "karen.lusinyan@softecspa.it" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/CommonUtilsAds.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+    s.requires_arc = true
+    s.prefix_header_file = 'Pod/Classes/Pod-Prefix.pch'
+    s.source_files = 'Pod/Classes/**/*.{h,m}'
 
-  s.platform     = :ios, '7.0'
-  s.requires_arc = true
+    s.resource_bundles = { 'CommonUtilsAds' => ['Pod/Assets/Images/*.*'] }
 
-  s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'CommonUtilsAds' => ['Pod/Assets/*.png']
-  }
+    #-------- Pods --------
+    s.dependency 'CommonUtils'
+    s.dependency 'Google-Mobile-Ads-SDK'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+    #-------- Frameworks --------
+    s.frameworks = 'AdSupport', 'iAd'
+    #---------------------------
+
+    #s.vendored_frameworks = 'GoogleMobileAds'
+    s.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/Google-Mobile-Ads-SDK/**"' }
 end
