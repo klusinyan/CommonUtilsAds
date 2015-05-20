@@ -9,7 +9,7 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
- - Storyboard: create CommonBannerController and assign it as a rootViewController (container controller)
+  Storyboard: create CommonBannerController and assign it as a rootViewController (container controller)
 
     [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
                       withPriority:CommonBannerPriorityHigh
