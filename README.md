@@ -9,7 +9,7 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-  Storyboard/or not: CREATE rootViewController "CommonBannerController" as a container
+  Storyboard/programmatically: CREATE rootViewController "CommonBannerController" as a container
 
     [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
                       withPriority:CommonBannerPriorityHigh
@@ -29,8 +29,16 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     //[CommonBanner setDebugMode:NO];
     [CommonBanner startManaging];
 
+  ... 
+  In your "ViewController.m" #import CommonBanner.h and call self.canDisplayAds = YES to present the ads
+
+  That's it! 
+  Enjoy
 
 ## Requirements
+
+  Requires iOS 7 and later
+  Written in ARC
 
 ## Installation
 
