@@ -9,7 +9,7 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-  Storyboard/programmatically: CREATE rootViewController "CommonBannerController" as a container
+  Storyboard/programmatically: [create RootViewController "CommonBannerController" as a container]
 
     [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
                       withPriority:CommonBannerPriorityHigh
