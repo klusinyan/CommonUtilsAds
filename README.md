@@ -9,6 +9,22 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+    [CommonBanner regitserProvider:[CommonBannerProviderGAd class]
+                      withPriority:CommonBannerPriorityLow
+                     requestParams:@{keyAdUnitID    : @"your-unid-id(provided by Google AdMob)",
+                                     keyTestDevices : @[@"your test device id(optional)"]}];
+    
+    [CommonBanner regitserProvider:[CommonBannerProviderCustom class]
+                      withPriority:CommonBannerPriorityLow
+                     requestParams:nil];
+    
+    [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
+                      withPriority:CommonBannerPriorityHigh
+                     requestParams:nil];
+    
+    [CommonBanner setDebugMode:NO];
+    [CommonBanner startManaging];
+
 ## Requirements
 
 ## Installation
