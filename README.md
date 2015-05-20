@@ -39,6 +39,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     That's it! 
     Enjoy
 
+## Step 5
+   Comming soon
+
 ## Requirements
 
     Requires iOS 7 and later
