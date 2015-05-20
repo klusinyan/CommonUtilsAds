@@ -10,10 +10,7 @@
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 // Storyboard: create CommonBannerController and assign it as a rootViewController (container controller)
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
-    ...
+// put intilalizzation in your AppDelegate 
 
     [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
                       withPriority:CommonBannerPriorityHigh
@@ -32,11 +29,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     
     //[CommonBanner setDebugMode:NO];
     [CommonBanner startManaging];
-    
-    ...
 
-    return YES;
-}
 
 ## Requirements
 
