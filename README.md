@@ -30,10 +30,14 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     [CommonBanner startManaging];
 
   ... 
-  In your "ViewController.m" #import CommonBanner.h and call self.canDisplayAds = YES to present the ads
+  
+In your "ViewController.m" #import CommonBanner.h and call self.canDisplayAds = YES to present the ads
 
-  That's it! 
-  Enjoy
+See more personalizzation in CommonBanner.h
+
+That's it! 
+
+Enjoy
 
 ## Requirements
 
