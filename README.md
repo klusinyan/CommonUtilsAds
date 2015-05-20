@@ -19,7 +19,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
                       withPriority:CommonBannerPriorityLow
                      requestParams:@{keyAdUnitID    : @"your-adUnitId provided by Google",
                                      keyTestDevices : @[@"your-test-device-id"]}];
-    
     /*
     [CommonBanner regitserProvider:[CommonBannerProviderCustom class]
                       withPriority:CommonBannerPriorityLow
