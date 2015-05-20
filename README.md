@@ -40,7 +40,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     Enjoy
     
 ## Step 5
-    Comming soon
+    Comming soon :-)
     
 ## Requirements
 
