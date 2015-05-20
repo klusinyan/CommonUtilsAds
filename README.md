@@ -11,7 +11,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Step 1
     Storyboard/programmatically: [create RootViewController "CommonBannerController" as a container]
-    Put these lines of code in your AppDelegate.m
+    
+    Put this in your AppDelegate.m
+    
+    ...
     
     [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
                       withPriority:CommonBannerPriorityHigh
@@ -29,6 +32,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     
     //[CommonBanner setDebugMode:NO];
     [CommonBanner startManaging];
+    
+    ...
 
 ## Step 2
     In your "ViewController.m" #import CommonBanner.h 
