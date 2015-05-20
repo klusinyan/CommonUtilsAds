@@ -35,8 +35,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Step 3
     To present ads SIMPLY CALL self.canDisplayAds = YES
     
-That's it! 
-Enjoy
+## Step 4
+    That's it! 
+    Enjoy
 
 ## Requirements
 
