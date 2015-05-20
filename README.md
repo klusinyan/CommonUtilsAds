@@ -19,16 +19,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
                       withPriority:CommonBannerPriorityHigh
                      requestParams:nil];
-
+    
     [CommonBanner regitserProvider:[CommonBannerProviderGAd class]
                       withPriority:CommonBannerPriorityLow
-                     requestParams:@{keyAdUnitID    : @"your-adUnitId provided by Google",
-                                     keyTestDevices : @[@"your-test-device-id"]}];
-    /*
-    [CommonBanner regitserProvider:[CommonBannerProviderCustom class]
-                      withPriority:CommonBannerPriorityLow
-                     requestParams:nil];
-    //*/
+                     requestParams:@{keyAdUnitID    : @"ca-app-pub-3940256099942544/2934735716",
+                                     keyTestDevices : @[kGADSimulatorID]}];
     
     //[CommonBanner setDebugMode:NO];
     [CommonBanner startManaging];
