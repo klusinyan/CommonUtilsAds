@@ -8,28 +8,29 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
-    [CommonBanner regitserProvider:[CommonBannerProviderGAd class]
-                      withPriority:CommonBannerPriorityLow
-                     requestParams:@{keyAdUnitID    : @"ca-app-pub-3940256099942544/2934735716",
-                                     keyTestDevices : @[@"104e7e015323c4993bcecf1b7fc91b08"]}];
-    
-    [CommonBanner regitserProvider:[CommonBannerProviderCustom class]
-                      withPriority:CommonBannerPriorityLow
-                     requestParams:nil];
-    
+{
     [CommonBanner regitserProvider:[CommonBannerProvideriAd class]
                       withPriority:CommonBannerPriorityHigh
                      requestParams:nil];
     
+    [CommonBanner regitserProvider:[CommonBannerProviderGAd class]
+                      withPriority:CommonBannerPriorityLow
+                     requestParams:@{keyAdUnitID    : @"ca-app-pub-3940256099942544/2934735716",
+                                     keyTestDevices : @[kGADSimulatorID]}];
+    /* TEST ONLY
+    [CommonBanner regitserProvider:[CommonBannerProviderCustom class]
+                      withPriority:CommonBannerPriorityLow
+                     requestParams:nil];
+     //*/
+    
+    //[CommonBanner setBannerPosition:CommonBannerPositionTop];
+    
     [CommonBanner setDebugMode:NO];
     [CommonBanner startManaging];
     
-    //[CommonBanner setBannerPosition:CommonBannerPositionTop];
-
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

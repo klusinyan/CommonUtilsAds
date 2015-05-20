@@ -2,6 +2,7 @@
 //  Copyright (c) 2014 Karen Lusinyan. All rights reserved.
 
 #import "ViewController.h"
+
 #import "CommonBanner.h"
 
 @interface ViewController ()
@@ -17,6 +18,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     self.adsShouldDisplayAnimated = YES;
     self.canDisplayAds = YES;
 }

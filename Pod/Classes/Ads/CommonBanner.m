@@ -8,8 +8,6 @@
 NSString * const keyAdUnitID = @"adUnitID";
 NSString * const keyTestDevices = @"testDevices";
 
-@import GoogleMobileAds;
-
 NSString * const BannerProviderStatusDidChnage = @"BannerProviderStatusDidChnage";
 
 typedef NS_ENUM(NSInteger, BannerProviderState) {
