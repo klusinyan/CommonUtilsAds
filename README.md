@@ -29,15 +29,16 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     //[CommonBanner setDebugMode:NO];
     [CommonBanner startManaging];
 
-    In your "ViewController.m" #import CommonBanner.h and call self.canDisplayAds = YES to present the ads
-
+    In your "ViewController.m" #import CommonBanner.h 
+    To present ads SIMPLY CALL self.canDisplayAds = YES
+    
     That's it! 
     Enjoy
 
 ## Requirements
 
-  Requires iOS 7 and later
-  Written in ARC
+    Requires iOS 7 and later
+    Written in ARC
 
 ## Installation
 
