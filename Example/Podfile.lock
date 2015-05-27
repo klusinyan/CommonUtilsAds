@@ -37,13 +37,17 @@ PODS:
   - Google-Mobile-Ads-SDK (7.2.2)
 
 DEPENDENCIES:
-  - CommonUtilsAds
+  - CommonUtilsAds (from `../`)
+
+EXTERNAL SOURCES:
+  CommonUtilsAds:
+    :path: ../
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   CommonUtils: 00c36466b7995c3d49c299e7e8bca2991082a778
-  CommonUtilsAds: ce80ee002d7fb467661aa117a5a91a28fee50e7f
+  CommonUtilsAds: 92600c86e5940b2aeabc943dcfdeaadc811c5ea6
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   Google-Mobile-Ads-SDK: 9561b27b8dd2ef861ee74b4c1ba77104c4c5414a
 

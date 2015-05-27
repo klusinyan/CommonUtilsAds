@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, CommonBannerPriority) {
 /*!
  *  @brief  Call this method to have shared manager of CommonBanner
  *
- *  @return singleton instance of banner mananer
+ *  @return singleton instance of banner manager
  */
 + (CommonBanner *)manager;
 
@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, CommonBannerPriority) {
  *
  *  @param rootViewController first controller of stack
  *
- *  @return singleton instance of banner mananer
+ *  @return singleton instance of banner manager
  *  @discussion This method should be called in application:didFinishLaunchingWithOptions: The returned viewcontroller an instance of type CommonBannerController should be set as a application window.rootViewController. If your app uses storyboard you should ignore this method. In that case create initial view controller with type=CommonBannerController, then create embed transition to your top view controller
  */
 + (CommonBannerController *)bannerControllerWithRootViewController:(UIViewController *)rootViewController;
