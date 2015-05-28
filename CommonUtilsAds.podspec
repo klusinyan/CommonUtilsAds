@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'CommonUtilsAds'
-    s.version      = '1.0.4'
+    s.version      = '1.0.5'
     s.summary      = 'CommonUtils extension for Ads.'
     s.homepage     = 'https://bitbucket.org/mrklteam/commonutilsads/'
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
     #-------- Pods --------
     s.dependency 'CommonUtils'
-    s.dependency 'Google-Mobile-Ads-SDK'
+    s.dependency 'Google-Mobile-Ads-SDK', '~>7.1.0'
 
     #-------- Frameworks --------
     s.frameworks = 'AdSupport', 'iAd'
