@@ -30,7 +30,7 @@ PODS:
     - AFNetworking
     - Canvas
     - DateTools
-  - CommonUtilsAds (1.0.4):
+  - CommonUtilsAds (1.0.5):
     - CommonUtils
     - Google-Mobile-Ads-SDK (~> 7.1.0)
   - DateTools (1.5.0)
@@ -47,7 +47,7 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   CommonUtils: 00c36466b7995c3d49c299e7e8bca2991082a778
-  CommonUtilsAds: 30d7e1e68f20705372939381acfee4eb947aa7fa
+  CommonUtilsAds: c2baef6c1da7011a695ddf9fe9e1f03bc4f71370
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   Google-Mobile-Ads-SDK: 9b7c22345f13de4164e9e6d90ad49cce42124c3c
 
