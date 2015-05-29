@@ -16,7 +16,7 @@
     [CommonBanner regitserProvider:[CommonBannerProviderGAd class]
                       withPriority:CommonBannerPriorityLow
                      requestParams:@{keyAdUnitID    : @"ca-app-pub-3940256099942544/2934735716",
-                                     keyTestDevices : @[kDFPSimulatorID]/*@[kGADSimulatorID]*/}];
+                                     keyTestDevices : @[kGADSimulatorID]}];
     /* TEST ONLY
     [CommonBanner regitserProvider:[CommonBannerProviderCustom class]
                       withPriority:CommonBannerPriorityLow
