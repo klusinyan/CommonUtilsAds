@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'CommonUtilsAds'
-    s.version      = '1.0.6'
+    s.version      = '1.0.7'
     s.summary      = 'CommonUtils extension for Ads.'
     s.homepage     = 'https://bitbucket.org/mrklteam/commonutilsads/'
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
