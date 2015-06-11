@@ -444,7 +444,8 @@ static void inline LOG(Provider *provider, SEL selector) {
             return;
         }
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:NO];
-        NSArray *providers = [self.providersQueue sortedArrayUsingDescriptors:@[sort]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"priority >= 0"];
+        NSArray *providers = [[self.providersQueue filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sort]];
         for (int i = 0; i < [providers count]; i++) {
             Provider *provider = [providers objectAtIndex:i];
             //*******************DEBUG*******************//
