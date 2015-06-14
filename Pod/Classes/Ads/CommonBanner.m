@@ -457,7 +457,7 @@ static void inline LOG(Provider *provider, SEL selector) {
                     if (self.currentBannerProvider != nil) {
                         [self syncTask:^{
                             [self currentProvider].state = BannerProviderStateIdle;
-                            [self displayBanner:NO animated:NO completion:^(BOOL finished) {
+                            [self performLayoutAnimated:NO completion:^(BOOL finished) {
                                 self.currentBannerProvider = nil;
                             }];
                         }];
@@ -469,7 +469,7 @@ static void inline LOG(Provider *provider, SEL selector) {
                         // if current banner provider changes state to idle then hide
                         if (self.currentBannerProvider != nil && [self currentProvider].state == BannerProviderStateIdle) {
                             [self syncTask:^{
-                                [self displayBanner:NO animated:NO completion:^(BOOL finished) {
+                                [self performLayoutAnimated:NO completion:^(BOOL finished) {
                                     self.currentBannerProvider = nil;
                                 }];
                             }];
@@ -478,7 +478,7 @@ static void inline LOG(Provider *provider, SEL selector) {
                             DebugLog(@"preparing to show...%@", [[provider bannerProvider] class]);
                             [self syncTask:^{
                                 // hide banner
-                                [self displayBanner:NO animated:NO completion:^(BOOL finished) {
+                                [self performLayoutAnimated:NO completion:^(BOOL finished) {
                                     // remove current banner from bannerContainer
                                     [[self.currentBannerProvider bannerView] removeFromSuperview];
                                     // set old provider to [state=ready]
@@ -490,7 +490,7 @@ static void inline LOG(Provider *provider, SEL selector) {
                                     // add current banner to bannerContainer
                                     [self.bannerContainer addSubview:[self.currentBannerProvider bannerView]];
                                     // diplay banner
-                                    [self displayBanner:YES animated:YES completion:^(BOOL finished) {
+                                    [self performLayoutAnimated:YES completion:^(BOOL finished) {
                                         LOG([self currentProvider], _cmd);
                                     }];
                                 }];
@@ -504,12 +504,11 @@ static void inline LOG(Provider *provider, SEL selector) {
     }
 }
 
-- (void)displayBanner:(BOOL)display animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+- (void)performLayoutAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
     //****************************DEBUG****************************//
-    DebugLog(@"isBannerLoaded=[%@] display=[%@] animated=[%@]",
+    DebugLog(@"isBannerLoaded=[%@] animated=[%@]",
              [self.currentBannerProvider isBannerLoaded] ? @"Y" : @"N",
-             display ? @"Y" : @"N",
              ([self.adapter adsShouldDisplayAnimated] && animated) ? @"Y" : @"N");
     //****************************DEBUG****************************//
     if ([self.adapter adsShouldDisplayAnimated] && animated) {
