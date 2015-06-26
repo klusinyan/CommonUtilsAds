@@ -71,6 +71,14 @@ typedef NS_ENUM(NSInteger, CommonBannerPriority) {
 + (void)setDebugMode:(BOOL)debugMode;
 
 /*!
+ *  @brief  Call this method to enable test mode
+ *
+ *  @param debug set YES to enable
+ *  @warning will be disabled in release mode
+ */
++ (void)setTestMode:(BOOL)testMode;
+
+/*!
  *  @brief  Call this method to have shared manager of CommonBanner
  *
  *  @return singleton instance of banner manager

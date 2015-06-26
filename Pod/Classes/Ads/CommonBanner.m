@@ -98,11 +98,6 @@ typedef NS_ENUM(NSInteger, LockState) {
     LockStateBusy
 };
 
-#define kTestMode
-#ifdef kTestMode
-#warning test mode
-#endif
-
 @interface CommonBanner ()
 
 @property (nonatomic, strong) CommonBannerController *commonBannerController;
@@ -120,13 +115,31 @@ typedef NS_ENUM(NSInteger, LockState) {
 
 @property (nonatomic, copy) Task task;
 
+//**********************************************************//
+//************************DEBUG MODE************************//
+//**********************************************************//
 @property (nonatomic, getter=isDebugMode) BOOL debugMode;
 @property (nonatomic, strong) NSMutableArray *debugAlertQueue;
+//**********************************************************//
+//************************DEBUG MODE************************//
+//**********************************************************//
 
-#ifdef kTestMode
-@property (nonatomic) NSInteger caseIndex;
+//**********************************************************//
+//*************************TEST MODE************************//
+//**********************************************************//
+typedef NS_ENUM(NSInteger, TestCase) {
+    TestCaseShowBoth=0,
+    TestCaseHideBoth,
+    TestCaseShowOnlyOne,
+    TestCaseCount
+};
+
 @property (nonatomic, strong) NSMutableDictionary *defaultValues;
-#endif
+@property (nonatomic, getter=isTestMode) BOOL testMode;
+@property (nonatomic) TestCase testCase;
+//**********************************************************//
+//*************************TEST MODE************************//
+//**********************************************************//
 
 @end
 
@@ -193,14 +206,6 @@ static void inline LOG(Provider *provider, SEL selector) {
 //**********************************************************//
 NSString * const CommonBannerStatusDidChangeNotification = @"CommonBannerStatusDidChangeNotification";
 
-#ifdef kTestMode
-typedef NS_ENUM(NSInteger, TestCase) {
-    TestCaseShowBoth=0,
-    TestCaseHideBoth,
-    TestCaseShowOnlyOne,
-    TestCaseCount
-};
-
 - (NSMutableDictionary *)defaultValues
 {
     if (_defaultValues == nil) {
@@ -209,9 +214,22 @@ typedef NS_ENUM(NSInteger, TestCase) {
     return _defaultValues;
 }
 
-+ (void)load
++ (void)setTestMode:(BOOL)testMode
 {
-    [self runTestAfterDelay:10];
+    if (DEBUG) {
+        static dispatch_once_t pred = 0;
+        dispatch_once(&pred, ^{
+            [[self manager] setTestMode:testMode];
+            if (testMode) {
+                [self runTestAfterDelay:10];
+            }
+        });
+    }
+}
+
++ (BOOL)isTestMode
+{
+    return [[self manager] isTestMode];
 }
 
 + (CommonBannerPriority)defaultValue:(Provider *)provider
@@ -260,28 +278,27 @@ typedef NS_ENUM(NSInteger, TestCase) {
                 [[self manager].defaultValues setObject:@(provider.priority) forKey:NSStringFromClass([[provider bannerProvider] class])];
             }
 
-            [self updatePriorityIfNeeded:[self testCase:[self manager].caseIndex forProvider:provider]
+            [self updatePriorityIfNeeded:[self testCase:[self manager].testCase forProvider:provider]
                                 forClass:[[provider bannerProvider] class]];
         }];
         
         //*************************POST NOTIFICATION************************//
-        NSDictionary *userInfo = @{@"status" : [self descriptionForTestCase:[self manager].caseIndex]};
+        NSDictionary *userInfo = @{@"status" : [self descriptionForTestCase:[self manager].testCase]};
         NSNotification *notification = [[NSNotification alloc] initWithName:CommonBannerStatusDidChangeNotification
                                                                      object:nil
                                                                    userInfo:userInfo];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         //*************************POST NOTIFICATION************************//
 
-        [self manager].caseIndex++;
+        [self manager].testCase++;
 
-        if ([self manager].caseIndex == TestCaseCount) {
-            [self manager].caseIndex = 0;
+        if ([self manager].testCase == TestCaseCount) {
+            [self manager].testCase = 0;
         }
 
         [self runTestAfterDelay:2];
     });
 }
-#endif
 //**********************************************************//
 //*************************TEST MODE************************//
 //**********************************************************//

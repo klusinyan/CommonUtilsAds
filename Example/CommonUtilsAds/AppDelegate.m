@@ -26,6 +26,8 @@
     //[CommonBanner setBannerPosition:CommonBannerPositionTop];
     
     [CommonBanner setDebugMode:NO];
+    //[CommonBanner setTestMode:YES];
+    
     [CommonBanner startManaging];
     
     return YES;
