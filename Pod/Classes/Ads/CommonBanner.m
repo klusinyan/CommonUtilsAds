@@ -98,6 +98,11 @@ typedef NS_ENUM(NSInteger, LockState) {
     LockStateBusy
 };
 
+#define kTestMode
+#ifdef kTestMode
+#warning test mode
+#endif
+
 @interface CommonBanner ()
 
 @property (nonatomic, strong) CommonBannerController *commonBannerController;
@@ -117,6 +122,11 @@ typedef NS_ENUM(NSInteger, LockState) {
 
 @property (nonatomic, getter=isDebugMode) BOOL debugMode;
 @property (nonatomic, strong) NSMutableArray *debugAlertQueue;
+
+#ifdef kTestMode
+@property (nonatomic) NSInteger caseIndex;
+@property (nonatomic, strong) NSMutableDictionary *defaultValues;
+#endif
 
 @end
 
@@ -176,6 +186,104 @@ static void inline LOG(Provider *provider, SEL selector) {
 }
 //**********************************************************//
 //************************DEBUG MODE************************//
+//**********************************************************//
+
+//**********************************************************//
+//*************************TEST MODE************************//
+//**********************************************************//
+NSString * const CommonBannerStatusDidChangeNotification = @"CommonBannerStatusDidChangeNotification";
+
+#ifdef kTestMode
+typedef NS_ENUM(NSInteger, TestCase) {
+    TestCaseShowBoth=0,
+    TestCaseHideBoth,
+    TestCaseShowOnlyOne,
+    TestCaseCount
+};
+
+- (NSMutableDictionary *)defaultValues
+{
+    if (_defaultValues == nil) {
+        _defaultValues = [[NSMutableDictionary alloc] initWithCapacity:[self.providersQueue count]];
+    }
+    return _defaultValues;
+}
+
++ (void)load
+{
+    [self runTestAfterDelay:10];
+}
+
++ (CommonBannerPriority)defaultValue:(Provider *)provider
+{
+    return [[[self manager].defaultValues objectForKey:NSStringFromClass([[provider bannerProvider] class])] integerValue];
+}
+
++ (CommonBannerPriority)testCase:(TestCase)testCase forProvider:(Provider *)provider
+{
+    NSInteger CommonBannerPriorityHidden = -1;
+    switch (testCase) {
+        case TestCaseShowBoth:
+            return [self defaultValue:provider];
+        case TestCaseHideBoth:
+            return CommonBannerPriorityHidden;
+        case TestCaseShowOnlyOne:
+            return [self defaultValue:provider];
+        default:
+            return CommonBannerPriorityHidden;
+    }
+}
+
++ (NSString *)descriptionForTestCase:(TestCase)testCase
+{
+    switch (testCase) {
+        case TestCaseShowBoth:
+            return @"show both";
+        case TestCaseHideBoth:
+            return @"hide both";
+        case TestCaseShowOnlyOne:
+            return @"show one with highest priority";
+        default:
+            return nil;
+            break;
+    }
+}
+
++ (void)runTestAfterDelay:(uint64_t)delay
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [[self manager].providersQueue enumerateObjectsUsingBlock:^(Provider *provider, NSUInteger idx, BOOL *stop) {
+            
+            // save default values
+            if ([[self manager].defaultValues objectForKey:NSStringFromClass([[provider bannerProvider] class])] == nil) {
+                [[self manager].defaultValues setObject:@(provider.priority) forKey:NSStringFromClass([[provider bannerProvider] class])];
+            }
+
+            [self updatePriorityIfNeeded:[self testCase:[self manager].caseIndex forProvider:provider]
+                                forClass:[[provider bannerProvider] class]];
+        }];
+        
+        //*************************POST NOTIFICATION************************//
+        NSDictionary *userInfo = @{@"status" : [self descriptionForTestCase:[self manager].caseIndex]};
+        NSNotification *notification = [[NSNotification alloc] initWithName:CommonBannerStatusDidChangeNotification
+                                                                     object:nil
+                                                                   userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        //*************************POST NOTIFICATION************************//
+
+        [self manager].caseIndex++;
+
+        if ([self manager].caseIndex == TestCaseCount) {
+            [self manager].caseIndex = 0;
+        }
+
+        [self runTestAfterDelay:2];
+    });
+}
+#endif
+//**********************************************************//
+//*************************TEST MODE************************//
 //**********************************************************//
 
 - (void)dealloc
@@ -444,8 +552,7 @@ static void inline LOG(Provider *provider, SEL selector) {
             return;
         }
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:NO];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"priority >= 0"];
-        NSArray *providers = [[self.providersQueue filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sort]];
+        NSArray *providers = [self.providersQueue sortedArrayUsingDescriptors:@[sort]];
         for (int i = 0; i < [providers count]; i++) {
             Provider *provider = [providers objectAtIndex:i];
             //*******************DEBUG*******************//
@@ -453,15 +560,13 @@ static void inline LOG(Provider *provider, SEL selector) {
             DebugLog(@"currentProvider = %@", [self currentProvider]);
             //*******************DEBUG*******************//
             if (self.adapter != nil) {
-                if (![self.adapter canDisplayAds]) {
-                    if (self.currentBannerProvider != nil) {
-                        [self syncTask:^{
-                            [self currentProvider].state = BannerProviderStateIdle;
-                            [self performLayoutAnimated:NO completion:^(BOOL finished) {
-                                self.currentBannerProvider = nil;
-                            }];
+                if (![self.adapter canDisplayAds] || provider.priority < 0) {
+                    [self syncTask:^{
+                        provider.state = BannerProviderStateIdle;
+                        [self performLayoutAnimated:NO completion:^(BOOL finished) {
+                            self.currentBannerProvider = nil;
                         }];
-                    }
+                    }];
                 }
                 else {
                     // if current banner provider shown with priority=1 then skip
