@@ -216,15 +216,15 @@ NSString * const CommonBannerStatusDidChangeNotification = @"CommonBannerStatusD
 
 + (void)setTestMode:(BOOL)testMode
 {
-    if (DEBUG) {
-        static dispatch_once_t pred = 0;
-        dispatch_once(&pred, ^{
-            [[self manager] setTestMode:testMode];
-            if (testMode) {
-                [self runTestAfterDelay:10];
-            }
-        });
-    }
+#ifdef DEBUG
+    static dispatch_once_t pred = 0;
+    dispatch_once(&pred, ^{
+        [[self manager] setTestMode:testMode];
+        if (testMode) {
+            [self runTestAfterDelay:10];
+        }
+    });
+#endif
 }
 
 + (BOOL)isTestMode
